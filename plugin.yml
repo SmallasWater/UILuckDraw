@@ -1,0 +1,11 @@
+name: UILuckDraw
+api: ["1.0.0","1.0.2","1.0.3","1.0.4","1.0.5","1.0.6","1.0.7","1.0.8"]
+main: LuckDraw.Luck
+version: "1.0.2"
+author: 若水
+load: POSTWORLD
+
+commands:
+  抽奖:
+    description: §6UI抽奖
+    usage: /抽奖
