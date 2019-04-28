@@ -1,9 +1,10 @@
 package LuckDraw.utils;
 
-import cn.nukkit.command.ConsoleCommandSender;
+
 import LuckDraw.Luck;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.command.ConsoleCommandSender;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.server.DataPacketReceiveEvent;
@@ -72,7 +73,7 @@ public class clickUI implements Listener{
                                     }
                                 }
                                     ////开始抽奖//////
-                                 int c = 0;
+                                int c = 0;
                                 for(GiveItemAndCommands commands:add){
                                     int random = new Random().nextInt(100);
                                     if(commands.getRandom() >= random){
@@ -84,9 +85,9 @@ public class clickUI implements Listener{
                                             Server.getInstance().dispatchCommand(new ConsoleCommandSender(), (commands.getCommand().replace("@p",player.getName())));
                                             Server.getInstance().removeOp(player.getName());
                                         }
+                                        c++;
                                         break; //抽出一个就退出
                                     }
-                                    c++;
                                 }
                                 if(c == 0){
                                     player.sendMessage("§b§l§o[抽奖] §c抱歉~~ 你什么都没获得 ");
@@ -99,6 +100,7 @@ public class clickUI implements Listener{
                     }else if(Integer.parseInt(data) == 1){
                         createUI.getAPI().sendMenuUI(player);
                     }
+                    return;
                 }
                 break;
 
@@ -108,13 +110,16 @@ public class clickUI implements Listener{
 
     private boolean isMathInventory(Player player,LinkedList<Item> inventory){
         if(inventory == null) return false;
+        int count = 0;
         for(Item item:inventory){
             Item playerHave = playerHasItem(player,item);
             if(playerHave != null){
-                return item.getCount() <= playerHave.getCount();
+                if(item.getCount() <= playerHave.getCount()){
+                    count++;
+                }
             }
         }
-        return false;
+        return count == inventory.size();
     }
     private Item playerHasItem(Player player,Item item){
         for (Item item1:player.getInventory().getContents().values()){
