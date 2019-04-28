@@ -1,6 +1,6 @@
 package LuckDraw.utils;
 
-
+import cn.nukkit.command.ConsoleCommandSender;
 import LuckDraw.Luck;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
@@ -72,21 +72,21 @@ public class clickUI implements Listener{
                                     }
                                 }
                                     ////开始抽奖//////
-                                int c = 0;
+                                 int c = 0;
                                 for(GiveItemAndCommands commands:add){
                                     int random = new Random().nextInt(100);
                                     if(commands.getRandom() >= random){
                                         player.sendMessage("§b§l§o[抽奖]§a 恭喜你获得 "+commands.getMessage());
                                         if(player.isOp()){
-                                            Server.getInstance().dispatchCommand(player, (commands.getCommand().replace("@p",player.getName())));
+                                            Server.getInstance().dispatchCommand(new ConsoleCommandSender(), (commands.getCommand().replace("@p",player.getName())));
                                         }else{
                                             Server.getInstance().addOp(player.getName());
-                                            Server.getInstance().dispatchCommand(player, (commands.getCommand().replace("@p",player.getName())));
+                                            Server.getInstance().dispatchCommand(new ConsoleCommandSender(), (commands.getCommand().replace("@p",player.getName())));
                                             Server.getInstance().removeOp(player.getName());
                                         }
-
-                                        c++;
+                                        break; //抽出一个就退出
                                     }
+                                    c++;
                                 }
                                 if(c == 0){
                                     player.sendMessage("§b§l§o[抽奖] §c抱歉~~ 你什么都没获得 ");
