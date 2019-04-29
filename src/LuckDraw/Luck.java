@@ -44,14 +44,12 @@ public class Luck extends PluginBase{
                    if(args[0].equals("add")){
                        LuckFile.getFile(args[1]).createLuck();
                         sender.sendMessage("抽奖箱创建成功");
+                        return true;
                    }
-            }else{
-                if(sender instanceof Player)
-                    createUI.getAPI().sendMenuUI((Player) sender);
             }
-        }else{
-            return false;
         }
+        if(sender instanceof Player)
+            createUI.getAPI().sendMenuUI((Player) sender);
         return true;
     }
 }
