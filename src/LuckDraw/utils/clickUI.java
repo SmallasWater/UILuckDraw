@@ -78,13 +78,8 @@ public class clickUI implements Listener{
                                     int random = new Random().nextInt(100);
                                     if(commands.getRandom() >= random){
                                         player.sendMessage("§b§l§o[抽奖]§a 恭喜你获得 "+commands.getMessage());
-                                        if(player.isOp()){
-                                            Server.getInstance().dispatchCommand(new ConsoleCommandSender(), (commands.getCommand().replace("@p",player.getName())));
-                                        }else{
-                                            Server.getInstance().addOp(player.getName());
-                                            Server.getInstance().dispatchCommand(new ConsoleCommandSender(), (commands.getCommand().replace("@p",player.getName())));
-                                            Server.getInstance().removeOp(player.getName());
-                                        }
+                                        Server.getInstance().dispatchCommand(new ConsoleCommandSender(), (commands.getCommand().replace("@p",player.getName())));
+                                      
                                         c++;
                                         break; //抽出一个就退出
                                     }
